@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { CoreService } from './share/core.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { MatButtonModule, MatCheckboxModule } from '@angular/material';
     MatCheckboxModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [CoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

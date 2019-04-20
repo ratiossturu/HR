@@ -29,7 +29,6 @@ export class CoreService {
 
    private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
- 
       return of(result as T);
     };
   }

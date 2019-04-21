@@ -9,7 +9,7 @@ import { CoreService } from '../share/core.service';
 export class FetchDataComponent {
   public forecasts: WeatherForecast[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string,cor:CoreService) {
+  constructor(cor:CoreService) {
     cor.HttpGet('api/SampleData/WeatherForecasts').subscribe(res=>{
       this.forecasts = res;
     },error=>{

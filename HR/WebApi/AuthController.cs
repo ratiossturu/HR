@@ -37,10 +37,16 @@ namespace HR.WebApi
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
+                var claims = new[]
+                   {
+                        new Claim(JwtRegisteredClaimNames.Sub, "rati"),
+                        new Claim(JwtRegisteredClaimNames.Jti, "15"),
+                   };
+
                 var tokeOptions = new JwtSecurityToken(
                     issuer: "http://localhost:5000",
                     audience: "http://localhost:5000",
-                    claims: new List<Claim>(),
+                    claims: claims,
                     expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: signinCredentials
                 );

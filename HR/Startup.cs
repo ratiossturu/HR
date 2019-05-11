@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
@@ -23,9 +24,12 @@ namespace HR
         public void ConfigureServices(IServiceCollection services)
         {
 
-         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+         services.AddAuthentication( JwtBearerDefaults.AuthenticationScheme)
           .AddJwtBearer(options =>
          {
+             options.SaveToken = true;
+             options.RequireHttpsMetadata = false;
+
              options.TokenValidationParameters = new TokenValidationParameters
              {
                  ValidateIssuer = true,
@@ -33,8 +37,8 @@ namespace HR
                  ValidateLifetime = true,
                  ValidateIssuerSigningKey = true,
 
-                 ValidIssuer = "http://localhost:5000",
-                 ValidAudience = "http://localhost:5000",
+                 //ValidIssuer = "",
+                 //ValidAudience = "http://localhost:5000",
                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
              };
          });
@@ -43,7 +47,7 @@ namespace HR
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CoreService } from '../share/core.service';
 import { LoginModel } from '../share/models/login_model';
+import { AuthServices } from '../share/auth/auth.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { LoginModel } from '../share/models/login_model';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private http: CoreService) { }
+  constructor(private http: CoreService,private auth : AuthServices) { }
 
   ngOnInit() {
 
@@ -20,12 +21,14 @@ export class LoginComponent implements OnInit {
     t.UserName="johndoe";
     
    this.http.HttpPost('api/Auth/login',t).subscribe(res=>{
-   console.log(res);
+   this.auth.insertToken(res);
+
    })
   }
 
   onSubmit(){
-    console.log("gdgfgh");
+
+    
     }
 
 }

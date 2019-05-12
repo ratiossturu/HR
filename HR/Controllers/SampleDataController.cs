@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using HR.WebApi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,18 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace HR.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    
+    [BasicAuthFilter]
     public class SampleDataController : Controller
     {
         private readonly string _currentUser;
-        SampleDataController(IHttpContextAccessor httpContextAccessor)
-        {
-            var stringId = httpContextAccessor?.HttpContext?.User?.FindFirst(JwtRegisteredClaimNames.Jti)?.Value;
-            int.TryParse(stringId ?? "0", out int userId);
-
-            _currentUser = stringId;// httpContextAccessor?.HttpContext?.User?.FindFirst(JwtRegisteredClaimNames.Jti)?.Value;
-        }
-
+     
 
         private static string[] Summaries = new[]
         {

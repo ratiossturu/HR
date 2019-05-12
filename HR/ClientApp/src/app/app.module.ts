@@ -14,6 +14,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { CoreService } from './share/core.service';
 import { LoginComponent } from './login/login.component';
+import { AuthServices } from './share/auth/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,7 @@ import { LoginComponent } from './login/login.component';
     MatCheckboxModule,
     MatButtonModule
   ],
-  providers: [CoreService],
+  providers: [CoreService,AuthServices,CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

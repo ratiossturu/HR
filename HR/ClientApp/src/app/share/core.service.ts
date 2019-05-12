@@ -2,13 +2,12 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable,throwError, of  } from 'rxjs';
 import { catchError } from 'rxjs/operators'; 
+import { AuthServices } from './auth/auth.service';
 
 
 const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token'
-  })}
+  headers:new HttpHeaders()
+}
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +17,14 @@ const httpOptions = {
 export class CoreService {
   
   private baseUrl:string;
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) 
+  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string,private auth : AuthServices) 
   {
    this.baseUrl=baseUrl;
+   httpOptions.headers= new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': this.auth.getToken()
+  });
+  console.log(httpOptions.headers);
   }
   
    HttpGet(url:string):Observable<any>{
